@@ -6,10 +6,10 @@ import hashlib
 # Create your views here.
 
 def index(request):
-    return render(request,'alternate_auth/index.html')
+    return render(request, 'alternate_auth/docs/index.html')
 
 def signup_ref(request):
-    return render(request,'alternate_auth/image_selector.html')
+    return render(request, 'alternate_auth/docs/image_selector.html')
 
 
 def login(request):
@@ -18,7 +18,7 @@ def login(request):
         username=request.POST.get("username");
         return redirect('/login/'+username)
     else:
-        return render(request,'alternate_auth/login.html',{'flag':0})
+        return render(request, 'alternate_auth/docs/login.html', {'flag':0})
 
 
 def login_ref(request,username):
@@ -29,17 +29,17 @@ def login_ref(request,username):
         flag=1
 
     if flag==1:
-        return render(request,'alternate_auth/login.html',{'flag':1})
+        return render(request, 'alternate_auth/docs/login.html', {'flag':1})
     if request.method=="POST":
         password=request.POST.get("password").encode("utf-8")
         hashed_password=hashlib.sha256(str(password).encode('utf-8')).hexdigest()
         if detail.password==hashed_password:
             return redirect('https://feba.bobibanking.com/corp/AuthenticationController?FORMSGROUP_ID__=AuthenticationFG&__START_TRAN_FLAG__=Y&FG_BUTTONS__=LOAD&ACTION.LOAD=Y&AuthenticationFG.LOGIN_FLAG=1&BANK_ID=012')
         else:
-            return render(request, 'alternate_auth/login_page.html',{'username': detail.username, 'image_type': detail.password_type,'flag':1})
+            return render(request, 'alternate_auth/docs/login_page.html', {'username': detail.username, 'image_type': detail.password_type, 'flag':1})
 
     else:
-        return render(request, 'alternate_auth/login_page.html',{'username':detail.username,'image_type':detail.password_type})
+        return render(request, 'alternate_auth/docs/login_page.html', {'username':detail.username, 'image_type':detail.password_type})
 
 
 
@@ -61,9 +61,9 @@ def signup(request ,id):
         user.save()
 
 
-        return render(request,'alternate_auth/index.html')
+        return render(request, 'alternate_auth/docs/index.html')
     else:
-        return render(request, 'alternate_auth/signup.html' ,{'id':id})
+        return render(request, 'alternate_auth/docs/signup.html', {'id':id})
 
 
 
